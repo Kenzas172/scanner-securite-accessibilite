@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Scanner URL</title>
+    <link href="style.css" rel="stylesheet" />
+    <script src="app.js"></script>
+    <script src="script.js"></script>
+</head>
+
+<body>
+
+    <h1 class="titre">Scanner d'URL</h1>
+<div class="info-box">
+    <p>
+        <strong>ℹ️ Important :</strong><br>
+        L’analyse de <strong>sécurité</strong> fonctionne uniquement avec une <strong>URL</strong>, 
+        car elle nécessite d’accéder aux informations du serveur (HTTPS, headers…).<br>
+        Si l’analyse échoue, c’est que le site bloque l’accès (CORS).<br>
+        L’analyse d’<strong>accessibilité</strong> fonctionne toujours en collant le code HTML (CTRL + U).
+    </p>
+</div>
+
+    <p>
+        Cet outil permet d’analyser une URL afin d’identifier certains risques liés
+        à la sécurité web ainsi que des problèmes d’accessibilité.
+    </p>
+
+    <p>
+        L’analyse est basée sur des bonnes pratiques courantes et a pour objectif
+        de sensibiliser l’utilisateur aux enjeux de la sécurité et de l’accessibilité web.
+    </p>
+
+    <h2 class="sous-titre">Entrez ici votre URL pour vérifier la sécurité :</h2>
+
+    <!-- SCANNER URL -->
+    <form onsubmit="event.preventDefault(); analyserURL();">
+        <label for="url" class="LeURL">L'URL :</label>
+
+        <input type="url" id="url" name="url" placeholder="https://example.com"
+        pattern="https://.*" size="50" required />
+
+        <button type="submit" class="boutton">Analyser</button>
+    </form>
+
+    <h2 class="sous-titre">Ou collez ici le code HTML de la page :</h2>
+
+    <textarea id="htmlInput" placeholder="Collez ici le code source HTML de la page"
+rows="12" style="width:60%; max-width:600px; margin:0 auto; display:block;"></textarea>
+
+
+    <button id="btnHTML" onclick="analyserHTML()" class="boutton">
+    Analyser le HTML
+</button>
+    
+
+
+    <!-- SIDEBAR EN BAS À GAUCHE -->
+    <nav class="sidebar">
+        <h2>Sommaire</h2>
+        <ul>
+            <li><a href="index.html">- Scanner d’URL</a></li>
+            <li><a href="sensibilisation.html">- Sensibilisation</a></li>
+            <li><a href="pourquoi.html">- Pourquoi mon lien ne marche pas ?</a></li>
+            <li><a href="accessibilite.html">- Accessibilité Web</a></li>
+            <li><a href="faq.html">- Questions fréquentes</a></li>
+            <li><a href="apropos.html">- À propos</a></li>
+        </ul>
+    </nav>
+
+</body>
+</html>

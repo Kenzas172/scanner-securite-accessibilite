@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Pourquoi mon lien ne marche pas ?</title>
+    <link href="style.css" rel="stylesheet" />
+</head>
+
+<body>
+
+<h1 class="titre">Pourquoi mon lien ne marche pas ?</h1>
+
+<p>
+Certains sites empêchent les navigateurs d’accéder directement à leur contenu pour des raisons de sécurité.
+C’est ce qu’on appelle la politique <strong>CORS</strong>.
+</p>
+
+<p>
+À cause de cela, mon scanner ne peut pas analyser automatiquement certaines pages via leur URL.
+Ce n’est pas un bug : c’est une protection imposée par le site que vous essayez d’analyser.
+</p>
+
+<h2 class="sous-titre">Comment contourner ce problème ?</h2>
+
+<p>
+Vous pouvez toujours analyser la page en suivant cette méthode :
+</p>
+
+<ol style="max-width:700px; margin:0 auto; text-align:left;">
+    <li>Ouvrez la page que vous voulez analyser</li>
+    <li>Faites <strong>clic droit → Afficher le code source</strong></li>
+    <li>Ou utilisez le raccourci <strong>CTRL + U</strong> (Windows) ou <strong>CMD + Option + U</strong> (Mac)</li>
+    <li>Copiez tout le code HTML</li>
+    <li>Collez-le dans la zone “Coller le code HTML” sur la page d’accueil</li>
+</ol>
+
+<p>
+Votre analyse fonctionnera alors à 100%, même si le site bloque les requêtes.
+</p>
+
+<button onclick="location.href='index.html'" class="boutton" style="display:block; margin:20px auto;">
+    Retour au scanner
+</button>
+
+</body>
+</html>

@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>FAQ – Questions fréquentes</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <nav class="sidebar">
+        <h2>Sommaire</h2>
+        <ul>
+            <li><a href="index.html">- Scanner d’URL</a></li>
+            <li><a href="sensibilisation.html">- Sensibilisation</a></li>
+            <li><a href="pourquoi.html">- Pourquoi mon lien ne marche pas ?</a></li>
+            <li><a href="accessibilite.html">- Accessibilité Web</a></li>
+            <li><a href="faq.html">- Questions fréquentes</a></li>
+            <li><a href="apropos.html">- À propos</a></li>
+        </ul>
+    </nav>
+
+    <main class="content">
+        <h1>Questions fréquentes (FAQ)</h1>
+
+        <h2>1. Pourquoi l’analyse de sécurité ne fonctionne pas avec du HTML collé ?</h2>
+        <p>
+            L’analyse de sécurité nécessite d’accéder aux <strong>informations du serveur</strong> (HTTPS, en‑têtes, cookies…).
+            Ces informations ne sont pas présentes dans le code HTML.  
+            Elles ne peuvent être obtenues qu’en analysant une <strong>URL</strong>.
+        </p>
+
+        <h2>2. Pourquoi certaines URL ne peuvent pas être analysées ?</h2>
+        <p>
+            Certains sites bloquent les requêtes venant d’autres pages pour des raisons de sécurité.
+            C’est ce qu’on appelle la politique <strong>CORS</strong>.  
+            Dans ce cas, l’analyse de sécurité est impossible, même si le site est accessible dans votre navigateur.
+        </p>
+
+        <h2>3. Comment analyser un site si l’URL ne fonctionne pas ?</h2>
+        <p>
+            Vous pouvez toujours analyser l’accessibilité du site en :
+        </p>
+        <ol>
+            <li>Ouvrant la page dans votre navigateur</li>
+            <li>Faisant <strong>CTRL + U</strong> (ou clic droit → Afficher le code source)</li>
+            <li>Copiant tout le code HTML</li>
+            <li>Le collant dans la zone prévue sur la page d’accueil</li>
+        </ol>
+
+        <h2>4. Quelle est la différence entre sécurité et accessibilité ?</h2>
+        <p>
+            La <strong>sécurité</strong> protège les données et empêche les attaques.  
+            L’<strong>accessibilité</strong> garantit que le site peut être utilisé par tout le monde, y compris les personnes en situation de handicap.  
+            Les deux sont essentiels, mais ils analysent des aspects différents.
+        </p>
+
+        <h2>5. Pourquoi mon site apparaît “non sécurisé” alors qu’il fonctionne ?</h2>
+        <p>
+            Un site peut fonctionner normalement tout en ayant des failles de sécurité.
+            Par exemple, il peut manquer de protections comme <strong>HSTS</strong>, <strong>CSP</strong> ou des cookies sécurisés.
+            Cela ne bloque pas l’accès au site, mais augmente les risques pour les utilisateurs.
+        </p>
+
+        <h2>6. Est‑ce que ce scanner détecte les virus ou les malwares ?</h2>
+        <p>
+            Non. Ce scanner analyse uniquement :
+        </p>
+        <ul>
+            <li>Les bonnes pratiques de <strong>sécurité web</strong></li>
+            <li>Les bonnes pratiques d’<strong>accessibilité</strong></li>
+        </ul>
+        <p>
+            Il ne remplace pas un antivirus ou un outil de détection de malware.
+        </p>
+
+        <h2>7. Est‑ce que l’analyse est fiable ?</h2>
+        <p>
+            Oui, pour les points analysés.  
+            Le scanner se base sur des bonnes pratiques reconnues (HTTPS, CSP, alt, labels…).  
+            Cependant, il ne peut pas analyser :
+        </p>
+        <ul>
+            <li>Le code JavaScript interne</li>
+            <li>Les bases de données</li>
+            <li>Les failles avancées côté serveur</li>
+        </ul>
+        <p>
+            C’est un outil de <strong>sensibilisation</strong>, pas un audit complet.
+        </p>
+
+    </main>
+
+</body>
+</html>

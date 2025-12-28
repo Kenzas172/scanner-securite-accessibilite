@@ -1,0 +1,211 @@
+/* GLOBAL */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    margin: 0;
+    padding: 0;
+    padding-left: 60px; /* espace pour la sidebar */
+
+}
+.info-box {
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #fff8d6;
+    border-left: 5px solid #f1c40f;
+    border-radius: 8px;
+    font-size: 0.95em;
+    color: #444;
+}
+
+/* LAYOUT GLOBAL */
+.container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.content {
+    margin-left: 100px; /* laisse la place à la sidebar */
+    padding: 40px;
+    text-align: center;
+}
+
+
+.content h1 {
+    margin-top: 40px;
+    font-size: 48px;
+    margin-bottom: 20px;
+    color: rgb(111, 10, 10);
+    text-align: center;
+
+}
+
+.content p {
+    margin-top: 70px;
+    margin-bottom: 50px;
+    font-size: 18px;
+    line-height: 1.6;
+    max-width: 800px; /* évite que le texte soit trop large */
+    margin: 0 auto;   /* centre le bloc */
+}
+
+
+/* SIDEBAR */
+.sidebar {
+    position: fixed;
+    bottom: 20px;        /* placé en bas */
+    left: 20px;          /* légèrement décalé */
+    width: 220px;
+    background-color: rgb(111, 10, 10);
+    color: white;
+    padding: 20px;
+    border-radius: 12px; /* joli arrondi */
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+/* Titre du sommaire */
+.sidebar h2 {
+    margin: 0 0 20px 0;
+    font-size: 1.6em;    /* plus gros */
+    text-align: center;
+}
+
+/* Liste */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Espacement entre les liens */
+.sidebar li {
+    margin-bottom: 18px; /* plus espacé */
+}
+
+/* Liens */
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;    /* plus gros */
+    font-weight: 500;
+    transition: 0.2s;
+}
+
+.sidebar a:hover {
+    padding-left: 8px;
+    text-decoration: underline;
+}
+
+/* TITRES */
+.titre {
+    font-size: 4.5em;
+    color: rgb(111, 10, 10);
+    margin-bottom: 0.5em;
+    text-align: center;
+}
+
+.sous-titre {
+    font-size: 1em;
+    color: rgb(15, 13, 13);
+    margin-top: 0em;
+    margin-bottom: 3em;
+    text-align: center;
+}
+
+/* FORMULAIRE */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 1em;
+    border: 1px solid #fbf7f7;
+    border-radius: 5px;
+    background-color: #f7f5f5;
+    text-align: center;
+}
+
+.LeURL {
+    margin-bottom: 5%;
+    display: block;
+}
+
+input {
+    margin-top: 3%;
+    padding: 8px;
+    width: 90%;
+    font-size: 1em;
+}
+
+.boutton {
+    margin-top: 5%;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: rgb(111, 10, 10);
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.boutton:hover {
+    background-color: rgb(150, 20, 20);
+}
+
+p{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-align: center;
+    max-width: 800px;
+    margin: 30px auto; 
+    font-size: 1.1em;
+    color: #555555;
+}
+
+#htmlInput { width: 60%; max-width: 600px; display: block; margin: 20px auto; }
+
+#btnHTML,
+#btnRetour {
+    display: block;
+    margin: 20px auto; /* centre horizontalement */
+    width: fit-content; /* évite qu'il prenne toute la largeur */
+}
+/* Boîte de résultat */
+.result-box {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #f7f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+/* Ligne de résultat */
+.result-line {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Pastilles */
+.pastille {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-weight: bold;
+    color: white;
+}
+
+.pastille-ok {
+    background-color: #2ecc71; /* vert */
+}
+
+.pastille-bad {
+    background-color: #e74c3c; /* rouge */
+}
+
+.pastille-info {
+    background-color: #f1c40f; /* jaune */
+}
+
+.content h2 { margin-bottom: 20px; /* espace sous le titre */ } 
+.content h1 { margin-bottom: 30px; /* espace plus grand sous le titre principal */ }
