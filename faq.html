@@ -13,7 +13,6 @@
         <ul>
             <li><a href="index.html">- Scanner d’URL</a></li>
             <li><a href="sensibilisation.html">- Sensibilisation</a></li>
-            <li><a href="pourquoi.html">- Pourquoi mon lien ne marche pas ?</a></li>
             <li><a href="accessibilite.html">- Accessibilité Web</a></li>
             <li><a href="faq.html">- Questions fréquentes</a></li>
             <li><a href="apropos.html">- À propos</a></li>
@@ -23,21 +22,42 @@
     <main class="content">
         <h1>Questions fréquentes (FAQ)</h1>
 
-        <h2>1. Pourquoi l’analyse de sécurité ne fonctionne pas avec du HTML collé ?</h2>
+        <h2>1. Comment fonctionne l’analyse de sécurité ?</h2>
         <p>
-            L’analyse de sécurité nécessite d’accéder aux <strong>informations du serveur</strong> (HTTPS, en‑têtes, cookies…).
-            Ces informations ne sont pas présentes dans le code HTML.  
-            Elles ne peuvent être obtenues qu’en analysant une <strong>URL</strong>.
+            L’analyse de sécurité utilise une <strong>API serverless</strong> qui récupère les en‑têtes (headers) du site analysé.
+            Ces informations permettent de vérifier des protections importantes comme :
+            HTTPS, CSP, HSTS, X‑Frame‑Options ou encore les cookies sécurisés.
         </p>
 
-        <h2>2. Pourquoi certaines URL ne peuvent pas être analysées ?</h2>
+        <h2>2. Pourquoi l’analyse de sécurité ne fonctionne pas avec du HTML collé ?</h2>
         <p>
-            Certains sites bloquent les requêtes venant d’autres pages pour des raisons de sécurité.
-            C’est ce qu’on appelle la politique <strong>CORS</strong>.  
-            Dans ce cas, l’analyse de sécurité est impossible, même si le site est accessible dans votre navigateur.
+            Les informations de sécurité proviennent du <strong>serveur</strong>, pas du code HTML.
+            Elles ne peuvent être obtenues qu’en analysant une <strong>URL réelle</strong>.
         </p>
 
-        <h2>3. Comment analyser un site si l’URL ne fonctionne pas ?</h2>
+        <h2>3. Pourquoi certaines URL ne peuvent pas être analysées ?</h2>
+        <p>
+            Même avec l’API serverless (qui contourne le CORS), certains sites bloquent les requêtes externes.
+            Cela arrive lorsqu’ils utilisent des protections comme :
+        </p>
+        <ul>
+            <li>Cloudflare (mode anti‑bot)</li>
+            <li>des firewalls applicatifs</li>
+            <li>des restrictions d’IP</li>
+            <li>des systèmes anti‑scraping</li>
+        </ul>
+        <p>
+            Dans ce cas, l’analyse renvoie : <em>“Impossible d’analyser ce site (bloqué ou invalide).”</em>
+        </p>
+
+        <h2>4. L’API serverless supprime‑t‑elle le problème CORS ?</h2>
+        <p>
+            Oui. Grâce à l’API, l’analyse passe par un <strong>serveur intermédiaire</strong> et non par votre navigateur.
+            Le CORS ne s’applique donc plus.  
+            Seuls les sites protégés par des systèmes anti‑bot peuvent encore refuser l’analyse.
+        </p>
+
+        <h2>5. Comment analyser un site si l’URL ne fonctionne pas ?</h2>
         <p>
             Vous pouvez toujours analyser l’accessibilité du site en :
         </p>
@@ -48,45 +68,65 @@
             <li>Le collant dans la zone prévue sur la page d’accueil</li>
         </ol>
 
-        <h2>4. Quelle est la différence entre sécurité et accessibilité ?</h2>
+        <h2>6. Comment fonctionne l’analyse d’accessibilité ?</h2>
+        <p>
+            L’analyse d’accessibilité examine directement le <strong>code HTML</strong> fourni.
+            Elle vérifie notamment :
+        </p>
+        <ul>
+            <li>la présence d’attributs <code>alt</code> sur les images</li>
+            <li>la présence de <code>label</code> pour les champs de formulaire</li>
+            <li>la structure des titres (h1, h2, h3)</li>
+        </ul>
+        <p>
+            Un <strong>score</strong> et un <strong>résumé automatique</strong> sont ensuite générés.
+        </p>
+
+        <h2>7. Quelle est la différence entre sécurité et accessibilité ?</h2>
         <p>
             La <strong>sécurité</strong> protège les données et empêche les attaques.  
             L’<strong>accessibilité</strong> garantit que le site peut être utilisé par tout le monde, y compris les personnes en situation de handicap.  
             Les deux sont essentiels, mais ils analysent des aspects différents.
         </p>
 
-        <h2>5. Pourquoi mon site apparaît “non sécurisé” alors qu’il fonctionne ?</h2>
+        <h2>8. Pourquoi mon site apparaît “non sécurisé” alors qu’il fonctionne ?</h2>
         <p>
             Un site peut fonctionner normalement tout en ayant des failles de sécurité.
             Par exemple, il peut manquer de protections comme <strong>HSTS</strong>, <strong>CSP</strong> ou des cookies sécurisés.
-            Cela ne bloque pas l’accès au site, mais augmente les risques pour les utilisateurs.
+            Cela n’empêche pas l’accès au site, mais augmente les risques pour les utilisateurs.
         </p>
 
-        <h2>6. Est‑ce que ce scanner détecte les virus ou les malwares ?</h2>
+        <h2>9. Est‑ce que ce scanner détecte les virus ou les malwares ?</h2>
         <p>
             Non. Ce scanner analyse uniquement :
         </p>
         <ul>
-            <li>Les bonnes pratiques de <strong>sécurité web</strong></li>
-            <li>Les bonnes pratiques d’<strong>accessibilité</strong></li>
+            <li>les bonnes pratiques de <strong>sécurité web</strong></li>
+            <li>les bonnes pratiques d’<strong>accessibilité</strong></li>
         </ul>
         <p>
             Il ne remplace pas un antivirus ou un outil de détection de malware.
         </p>
 
-        <h2>7. Est‑ce que l’analyse est fiable ?</h2>
+        <h2>10. Est‑ce que l’analyse est fiable ?</h2>
         <p>
             Oui, pour les points analysés.  
             Le scanner se base sur des bonnes pratiques reconnues (HTTPS, CSP, alt, labels…).  
             Cependant, il ne peut pas analyser :
         </p>
         <ul>
-            <li>Le code JavaScript interne</li>
-            <li>Les bases de données</li>
-            <li>Les failles avancées côté serveur</li>
+            <li>le code JavaScript interne</li>
+            <li>les bases de données</li>
+            <li>les failles avancées côté serveur</li>
         </ul>
         <p>
             C’est un outil de <strong>sensibilisation</strong>, pas un audit complet.
+        </p>
+
+        <h2>11. Mes données sont‑elles enregistrées ?</h2>
+        <p>
+            Non. Aucune URL, aucun code HTML et aucun résultat n’est stocké sur un serveur.
+            Tout est géré <strong>localement</strong> dans votre navigateur via <code>localStorage</code>.
         </p>
 
     </main>
