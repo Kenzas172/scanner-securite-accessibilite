@@ -1,6 +1,7 @@
 // ===============================
 // SCANNER D'URL (sécurité basique)
 // ===============================
+console.log("SCRIPT JS CHARGÉ");
 
 async function analyserURL() {
     const urlInput = document.getElementById("url").value.trim();
@@ -18,60 +19,48 @@ async function analyserURL() {
         return;
     }
 
-    let html = "<h2>Résultats de l'analyse</h2>";
-
-    // Vérification HTTPS
-    const httpsOK = url.protocol === "https:";
-    html += `<p><strong>HTTPS :</strong> ${httpsOK ? "✔ Sécurisé" : "❌ Non sécurisé"}</p>`;
-
-    try {
-        const response = await fetch(url);
-
-        const csp = response.headers.get("Content-Security-Policy");
-        const hsts = response.headers.get("Strict-Transport-Security");
-        const xframe = response.headers.get("X-Frame-Options");
-        const server = response.headers.get("Server");
-        const cookies = response.headers.get("Set-Cookie");
-
-        html += "<h3>Analyse des headers</h3>";
-        html += `<p><strong>CSP :</strong> ${csp ? "✔ Présent" : "❌ Absent"}</p>`;
-        html += `<p><strong>HSTS :</strong> ${hsts ? "✔ Présent" : "❌ Absent"}</p>`;
-        html += `<p><strong>X-Frame-Options :</strong> ${xframe ? "✔ Présent" : "❌ Absent"}</p>`;
-        html += `<p><strong>Serveur :</strong> ${server ? server : "❌ Non communiqué"}</p>`;
-
-        if (cookies) {
-            const secure = cookies.includes("Secure");
-            const httponly = cookies.includes("HttpOnly");
-            html += `<p><strong>Cookies sécurisés :</strong> ${secure ? "✔ Oui" : "❌ Non"}</p>`;
-            html += `<p><strong>HttpOnly :</strong> ${httponly ? "✔ Oui" : "❌ Non"}</p>`;
-        } else {
-            html += "<p><strong>Cookies :</strong> Aucun cookie détecté</p>";
-        }
-
-    } catch (err) {
-html += ` <p style="color:red;"> Analyse de sécurité de l'URL est impossible : ce site bloque l’accès (CORS).<br> Pour l’analyser, ouvrez la page puis faites <strong>CTRL + U</strong> et collez le code HTML dans la zone prévue. </p>`;    }
-
-    // ENVOI VERS LA PAGE RESULTAT
-    localStorage.setItem("analyseResultat", html);
+    // On stocke un message temporaire pendant que l'API travaille
+    localStorage.setItem("analyseResultat", "<p>Analyse en cours...</p>");
     window.location.href = "resultat.html";
 
+    // Appel à ton API serverless
     fetch(`/api/fetch?url=${encodeURIComponent(url)}`)
-    .then(res => res.json())
-    .then(data => {
-        if (!data.ok) {
-            afficherErreur("Impossible d'analyser ce site (bloqué ou invalide).");
-            return;
-        }
+        .then(res => res.json())
+        .then(data => {
+            if (!data.ok) {
+                localStorage.setItem("analyseResultat",
+                    `<p style="color:red;">Impossible d'analyser ce site (bloqué ou invalide).</p>`
+                );
+                return;
+            }
 
-        const headers = data.headers;
-        const html = data.html;
+            const headers = data.headers;
+            const html = data.html;
 
-        analyserSecurite(headers);
-        analyserAccessibilite(html);
-    });
+            let resultat = "<h2>Analyse de sécurité</h2>";
 
+            // HTTPS
+            resultat += `<p><strong>HTTPS :</strong> ${url.protocol === "https:" ? "✔ Sécurisé" : "❌ Non sécurisé"}</p>`;
+
+            // Headers
+            resultat += `<p><strong>CSP :</strong> ${headers["content-security-policy"] ? "✔ Présent" : "❌ Absent"}</p>`;
+            resultat += `<p><strong>HSTS :</strong> ${headers["strict-transport-security"] ? "✔ Présent" : "❌ Absent"}</p>`;
+            resultat += `<p><strong>X-Frame-Options :</strong> ${headers["x-frame-options"] ? "✔ Présent" : "❌ Absent"}</p>`;
+            resultat += `<p><strong>Serveur :</strong> ${headers["server"] || "❌ Non communiqué"}</p>`;
+
+            // Cookies
+            const cookies = headers["set-cookie"];
+            if (cookies) {
+                resultat += `<p><strong>Cookies sécurisés :</strong> ${cookies.includes("Secure") ? "✔ Oui" : "❌ Non"}</p>`;
+                resultat += `<p><strong>HttpOnly :</strong> ${cookies.includes("HttpOnly") ? "✔ Oui" : "❌ Non"}</p>`;
+            } else {
+                resultat += "<p><strong>Cookies :</strong> Aucun cookie détecté</p>";
+            }
+
+            // Enregistrement final
+            localStorage.setItem("analyseResultat", resultat);
+        });
 }
-
 
 
 // =====================================
@@ -98,9 +87,7 @@ function analyserHTML() {
 
     function ligne(titre, ok) {
         if (ok) score++;
-        return `
-            <p><strong>${titre} :</strong> ${ok ? "✔ OK" : "❌ Problème"}</p>
-        `;
+        return `<p><strong>${titre} :</strong> ${ok ? "✔ OK" : "❌ Problème"}</p>`;
     }
 
     let resultatHTML = `
@@ -111,7 +98,7 @@ function analyserHTML() {
         <h3>Score : ${Math.round((score / total) * 100)}%</h3>
     `;
 
-    // ENVOI VERS LA PAGE RESULTAT
     localStorage.setItem("analyseResultat", resultatHTML);
     window.location.href = "resultat.html";
 }
+

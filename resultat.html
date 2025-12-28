@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <title>Résultat de l'analyse</title>
     <link href="style.css" rel="stylesheet" />
+    <script src="script.js"></script>
+    
 </head>
 
 <body>
@@ -12,10 +14,21 @@
 
     <div id="affichage" style="max-width:800px; margin:0 auto; text-align:center;"></div>
 
- <button id="btnRetour" class="boutton" onclick="location.href='index.html'">
-    Retour au scanner
-</button>
+    <button id="btnRetour" class="boutton" onclick="location.href='index.html'">
+        Retour au scanner
+    </button>
 
+    <script>
+        // Récupération du résultat stocké
+        const resultat = localStorage.getItem("analyseResultat");
+
+        if (resultat) {
+            document.getElementById("affichage").innerHTML = resultat;
+        } else {
+            document.getElementById("affichage").innerHTML =
+                "<p style='color:red;'>Aucun résultat à afficher.</p>";
+        }
+    </script>
 
 </body>
 </html>
