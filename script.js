@@ -1,7 +1,6 @@
 // ===============================
 // SCANNER D'URL (sécurité basique)
 // ===============================
-console.log("SCRIPT JS CHARGÉ");
 
 async function analyserURL() {
     const urlInput = document.getElementById("url").value.trim();
@@ -19,47 +18,56 @@ async function analyserURL() {
         return;
     }
 
-    // On stocke un message temporaire pendant que l'API travaille
+    // Message temporaire
     localStorage.setItem("analyseResultat", "<p>Analyse en cours...</p>");
+
+    // APPEL API AVANT LE REDIRECT
+    try {
+        const res = await fetch(`/api/fetch?url=${encodeURIComponent(url)}`);
+        const data = await res.json();
+
+        if (!data.ok) {
+            localStorage.setItem("analyseResultat",
+                `<p style="color:red;">Impossible d'analyser ce site (bloqué ou invalide).</p>`
+            );
+            window.location.href = "resultat.html";
+            return;
+        }
+
+        const headers = data.headers;
+        const html = data.html;
+
+        let resultat = "<h2>Analyse de sécurité</h2>";
+
+        // HTTPS
+        resultat += `<p><strong>HTTPS :</strong> ${url.protocol === "https:" ? "✔ Sécurisé" : "❌ Non sécurisé"}</p>`;
+
+        // Headers
+        resultat += `<p><strong>CSP :</strong> ${headers["content-security-policy"] ? "✔ Présent" : "❌ Absent"}</p>`;
+        resultat += `<p><strong>HSTS :</strong> ${headers["strict-transport-security"] ? "✔ Présent" : "❌ Absent"}</p>`;
+        resultat += `<p><strong>X-Frame-Options :</strong> ${headers["x-frame-options"] ? "✔ Présent" : "❌ Absent"}</p>`;
+        resultat += `<p><strong>Serveur :</strong> ${headers["server"] || "❌ Non communiqué"}</p>`;
+
+        // Cookies
+        const cookies = headers["set-cookie"];
+        if (cookies) {
+            resultat += `<p><strong>Cookies sécurisés :</strong> ${cookies.includes("Secure") ? "✔ Oui" : "❌ Non"}</p>`;
+            resultat += `<p><strong>HttpOnly :</strong> ${cookies.includes("HttpOnly") ? "✔ Oui" : "❌ Non"}</p>`;
+        } else {
+            resultat += "<p><strong>Cookies :</strong> Aucun cookie détecté</p>";
+        }
+
+        // Stockage final
+        localStorage.setItem("analyseResultat", resultat);
+
+    } catch (err) {
+        localStorage.setItem("analyseResultat",
+            `<p style="color:red;">Analyse impossible : ce site bloque l’accès (CORS).</p>`
+        );
+    }
+
+    // REDIRECT APRÈS L’ANALYSE
     window.location.href = "resultat.html";
-
-    // Appel à ton API serverless
-    fetch(`/api/fetch?url=${encodeURIComponent(url)}`)
-        .then(res => res.json())
-        .then(data => {
-            if (!data.ok) {
-                localStorage.setItem("analyseResultat",
-                    `<p style="color:red;">Impossible d'analyser ce site (bloqué ou invalide).</p>`
-                );
-                return;
-            }
-
-            const headers = data.headers;
-            const html = data.html;
-
-            let resultat = "<h2>Analyse de sécurité</h2>";
-
-            // HTTPS
-            resultat += `<p><strong>HTTPS :</strong> ${url.protocol === "https:" ? "✔ Sécurisé" : "❌ Non sécurisé"}</p>`;
-
-            // Headers
-            resultat += `<p><strong>CSP :</strong> ${headers["content-security-policy"] ? "✔ Présent" : "❌ Absent"}</p>`;
-            resultat += `<p><strong>HSTS :</strong> ${headers["strict-transport-security"] ? "✔ Présent" : "❌ Absent"}</p>`;
-            resultat += `<p><strong>X-Frame-Options :</strong> ${headers["x-frame-options"] ? "✔ Présent" : "❌ Absent"}</p>`;
-            resultat += `<p><strong>Serveur :</strong> ${headers["server"] || "❌ Non communiqué"}</p>`;
-
-            // Cookies
-            const cookies = headers["set-cookie"];
-            if (cookies) {
-                resultat += `<p><strong>Cookies sécurisés :</strong> ${cookies.includes("Secure") ? "✔ Oui" : "❌ Non"}</p>`;
-                resultat += `<p><strong>HttpOnly :</strong> ${cookies.includes("HttpOnly") ? "✔ Oui" : "❌ Non"}</p>`;
-            } else {
-                resultat += "<p><strong>Cookies :</strong> Aucun cookie détecté</p>";
-            }
-
-            // Enregistrement final
-            localStorage.setItem("analyseResultat", resultat);
-        });
 }
 
 
